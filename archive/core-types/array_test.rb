@@ -4,102 +4,91 @@ require 'minitest/pride'
 
 class ArrayTest < Minitest::Test
   def test_empty
-    assert_equal __, [].empty?
-    assert_equal __, [1,2,3].empty?
+    assert [].empty?
+    refute [1,2,3].empty?
   end
 
   def test_first
-    skip
-    assert_equal __, [].first
-    assert_equal __, [:a, :b, :c].first
-    assert_equal __, ["spoon"].first
+    assert_nil [].first
+    assert_equal :a, [:a, :b, :c].first
+    assert_equal "spoon", ["spoon"].first
   end
 
   def test_last
-    skip
-    assert_equal __, [].last
-    assert_equal __, [:a, :b, :c].last
-    assert_equal __, ["spoon"].last
+    assert_nil [].last
+    assert_equal :c, [:a, :b, :c].last
+    assert_equal "spoon", ["spoon"].last
   end
 
   def test_access
-    skip
-    assert_equal __, [][0]
-    assert_equal __, ["a", "b", "c"][0]
-    assert_equal __, ["a", "b", "c"][1]
-    assert_equal __, ["a", "b", "c"][-1]
-    assert_equal __, ["a", "b", "c"][-2]
-    assert_equal __, ["a", "b", "c"][4]
+    assert_nil [][0]
+    assert_equal "a", ["a", "b", "c"][0]
+    assert_equal "b", ["a", "b", "c"][1]
+    assert_equal "c", ["a", "b", "c"][-1]
+    assert_equal "b", ["a", "b", "c"][-2]
+    assert_nil ["a", "b", "c"][4]
   end
 
   def test_index
-    skip
-    assert_equal __, ["a", "b", "c"].index("a")
-    assert_equal __, ["a", "b", "c"].index("b")
-    assert_equal __, ["a", "b", "c"].index("c")
-    assert_equal __, ["a", "b", "c"].index("d")
+    assert_equal 0, ["a", "b", "c"].index("a")
+    assert_equal 1, ["a", "b", "c"].index("b")
+    assert_equal 2, ["a", "b", "c"].index("c")
+    assert_nil ["a", "b", "c"].index("d")
   end
 
   def test_join
-    skip
-    assert_equal __, [].join
-    assert_equal __, [].join(' ')
-    assert_equal __, [].join(' - ')
-    assert_equal __, [].join(' and ')
-    assert_equal __, ["a", "b", "c"].join
-    assert_equal __, ["a", "b", "c"].join("")
-    assert_equal __, ["a", "b", "c"].join(" ")
-    assert_equal __, ["a", "b", "c"].join(" - ")
-    assert_equal __, ["a", "b", "c"].join(" and ")
+    assert_equal "", [].join
+    assert_equal "", [].join(' ')
+    assert_equal "", [].join(' - ')
+    assert_equal "", [].join(' and ')
+    assert_equal "abc", ["a", "b", "c"].join
+    assert_equal "abc", ["a", "b", "c"].join("")
+    assert_equal "a b c", ["a", "b", "c"].join(" ")
+    assert_equal "a - b - c", ["a", "b", "c"].join(" - ")
+    assert_equal "a and b and c", ["a", "b", "c"].join(" and ")
   end
 
   def test_length
-    skip
-    assert_equal __, [].length
-    assert_equal __, [:a].length
-    assert_equal __, [:a, :b].length
-    assert_equal __, [:a, :b, :c].length
+    assert_equal 0, [].length
+    assert_equal 1, [:a].length
+    assert_equal 2, [:a, :b].length
+    assert_equal 3, [:a, :b, :c].length
   end
 
   def test_reverse
-    skip
-    assert_equal __, [1, 2, 3].reverse
-    assert_equal __, [:a, :b, :c].reverse
+    assert_equal [3, 2, 1], [1, 2, 3].reverse
+    assert_equal [:c, :b, :a], [:a, :b, :c].reverse
   end
 
   def test_take
-    skip
-    assert_equal __, [].take(1)
-    assert_equal __, [].take(2)
-    assert_equal __, ["a", "b", "c", "d", "e"].take(3)
+    assert_equal [], [].take(1)
+    assert_equal [], [].take(2)
+    assert_equal ["a", "b", "c"], ["a", "b", "c", "d", "e"].take(3)
 
     words = ["fish", "boy", "pumpkin", "flower"]
-    assert_equal __, words.take(2)
-    assert_equal __, words
+    assert_equal ["fish", "boy"], words.take(2)
+    assert_equal ["fish", "boy", "pumpkin", "flower"], words
   end
 
   def test_plus
-    skip
     a1 = [] + []
     a2 = [] + [:a]
     a3 = [:a] + [:b]
     a4 = [:a, :b] + [:b, :c]
 
-    assert_equal __, a1
-    assert_equal __, a2
-    assert_equal __, a3
-    assert_equal __, a4
+    assert_equal [], a1
+    assert_equal [:a], a2
+    assert_equal [:a, :b], a3
+    assert_equal [:a, :b, :b, :c], a4
   end
 
   def test_concat
-    skip
-    assert_equal __, [].concat([:a])
-    assert_equal __, [:a].concat([:b])
-    assert_equal __, [:a, :b].concat([:b, :c])
+    assert_equal [:a], [].concat([:a])
+    assert_equal [:a, :b], [:a].concat([:b])
+    assert_equal [:a, :b, :b, :c], [:a, :b].concat([:b, :c])
   end
 
   def test_shovel
-    skip
     a1 = [] << []
     a2 = [] << nil
     a3 = [] << :a
@@ -107,57 +96,54 @@ class ArrayTest < Minitest::Test
     a5 = [:a, :b] << :c
     a6 = [:a, :b] << :b
 
-    assert_equal __, a1
-    assert_equal __, a2
-    assert_equal __, a3
-    assert_equal __, a4
-    assert_equal __, a5
-    assert_equal __, a6
+    assert_equal [[]], a1
+    assert_equal [nil], a2
+    assert_equal [:a], a3
+    assert_equal [:a, :b], a4
+    assert_equal [:a, :b, :c], a5
+    assert_equal [:a, :b, :b], a6
   end
 
   def test_minus
-    skip
     a1 = [] - []
     a2 = [:a] - []
     a3 = [:a, :b, :c] - [:a]
     a4 = [:a, :b, :c] - [:a, :b]
     a5 = [:a, :b, :a, :c, :a] - [:a]
 
-    assert_equal __, a1
-    assert_equal __, a2
-    assert_equal __, a3
-    assert_equal __, a4
-    assert_equal __, a5
+    assert_equal [], a1
+    assert_equal [:a], a2
+    assert_equal [:b, :c], a3
+    assert_equal [:c], a4
+    assert_equal [:b, :c], a5
   end
 
   def test_pipe
-    skip
     a1 = [] | []
     a2 = [] | [:a]
     a3 = [:a] | [:b]
     a4 = [:a, :b] | [:b, :c]
     a5 = [:a, :b, :b] | [:b, :b, :c]
 
-    assert_equal __, a1
-    assert_equal __, a2
-    assert_equal __, a3
-    assert_equal __, a4
-    assert_equal __, a5
+    assert_equal [], a1
+    assert_equal [:a], a2
+    assert_equal [:a, :b], a3
+    assert_equal [:a, :b, :c], a4
+    assert_equal [:a, :b, :c], a5
   end
 
   def test_ampersand
-    skip
     a1 = [] & []
     a2 = [] & [:a]
     a3 = [:a] & [:b]
     a4 = [:a, :b] & [:b, :c]
     a5 = [:a, :b, :b] & [:b, :b, :c]
 
-    assert_equal __, a1
-    assert_equal __, a2
-    assert_equal __, a3
-    assert_equal __, a4
-    assert_equal __, a5
+    assert_equal [], a1
+    assert_equal [], a2
+    assert_equal [], a3
+    assert_equal [:b], a4
+    assert_equal [:b], a5
   end
 
   class Wrapper
@@ -172,7 +158,6 @@ class ArrayTest < Minitest::Test
   end
 
   def test_intersection_of_objects
-    skip
     a = Wrapper.new(:a)
     b = Wrapper.new(:b)
     b1 = Wrapper.new(:b)
@@ -189,117 +174,107 @@ class ArrayTest < Minitest::Test
   end
 
   def test_uniq
-    skip
-    assert_equal __, [].uniq
-    assert_equal __, [:a].uniq
-    assert_equal __, [:a, :a, :a, :b].uniq
+    assert_equal [], [].uniq
+    assert_equal [:a], [:a].uniq
+    assert_equal [:a, :b], [:a, :a, :a, :b].uniq
   end
 
   def test_push
-    skip
-    assert_equal __, [].push(:a)
-    assert_equal __, [].push(nil)
-    assert_equal __, [].push([])
-    assert_equal __, [:a].push(:b)
-    assert_equal __, [:a, :b].push(:c)
-    assert_equal __, [1, "apple", :c].push(["fish", 7, :x])
+    assert_equal [:a], [].push(:a)
+    assert_equal [nil], [].push(nil)
+    assert_equal [[]], [].push([])
+    assert_equal [:a, :b], [:a].push(:b)
+    assert_equal [:a, :b, :c], [:a, :b].push(:c)
+    assert_equal [1, "apple", :c, ["fish", 7, :x]], [1, "apple", :c].push(["fish", 7, :x])
   end
 
   def test_shift
-    skip
-    assert_equal __, [].shift
-    assert_equal __, [:a].shift
-    assert_equal __, [:a, :b].shift
+    assert_nil [].shift
+    assert_equal :a, [:a].shift
+    assert_equal :a, [:a, :b].shift
   end
 
   def test_pop
-    skip
-    assert_equal __, [].pop
-    assert_equal __, [:a].pop
-    assert_equal __, [:a, :b].pop
+    assert_nil [].pop
+    assert_equal :a, [:a].pop
+    assert_equal :b, [:a, :b].pop
   end
 
   def test_unshift
-    skip
-    assert_equal __, [].unshift(:a)
-    assert_equal __, [].unshift(nil)
-    assert_equal __, [].unshift([])
-    assert_equal __, [:a].unshift(:b)
-    assert_equal __, [:a, :b].unshift(:c)
-    assert_equal __, [1, "apple", :c].unshift(["fish", 7, :x])
+    assert_equal [:a], [].unshift(:a)
+    assert_equal [nil], [].unshift(nil)
+    assert_equal [[]], [].unshift([])
+    assert_equal [:b, :a], [:a].unshift(:b)
+    assert_equal [:c, :a, :b], [:a, :b].unshift(:c)
+    assert_equal [["fish", 7, :x], 1, "apple", :c], [1, "apple", :c].unshift(["fish", 7, :x])
   end
 
   def test_parallel_assignment
-    skip
     fruit = ["apple", "banana", "cherry", "dewberry"]
 
     a, b, c, d = fruit
-    assert_equal __, a
-    assert_equal __, b
-    assert_equal __, c
-    assert_equal __, d
+    assert_equal "apple", a
+    assert_equal "banana", b
+    assert_equal "cherry", c
+    assert_equal "dewberry", d
 
     a, b = fruit
-    assert_equal __, a
-    assert_equal __, b
+    assert_equal "apple", a
+    assert_equal "banana", b
 
     a, *b = fruit
-    assert_equal __, a
-    assert_equal __, b
+    assert_equal "apple", a
+    assert_equal ["banana", "cherry", "dewberry"], b
 
     *a, b = fruit
-    assert_equal __, a
-    assert_equal __, b
+    assert_equal ["apple", "banana", "cherry"], a
+    assert_equal "dewberry", b
 
     a, b, *c = fruit
-    assert_equal __, a
-    assert_equal __, b
-    assert_equal __, c
+    assert_equal "apple", a
+    assert_equal "banana", b
+    assert_equal ["cherry", "dewberry"], c
 
     *a, b, c = fruit
-    assert_equal __, a
-    assert_equal __, b
-    assert_equal __, c
+    assert_equal ["apple", "banana"], a
+    assert_equal "cherry", b
+    assert_equal "dewberry", c
 
     a, *b, c = fruit
-    assert_equal __, a
-    assert_equal __, b
-    assert_equal __, c
+    assert_equal "apple", a
+    assert_equal ["banana", "cherry"], b
+    assert_equal "dewberry", c
   end
 
   def test_delete
-    skip
     protein = ["fish", "bacon", "chicken", "bacon", "bacon", "steak"]
 
     deleted = protein.delete("fish")
-    assert_equal __, deleted
-    assert_equal __, protein
+    assert_equal "fish", deleted
+    assert_equal ["bacon", "chicken", "bacon", "bacon", "steak"], protein
 
     deleted = protein.delete("bacon")
-    assert_equal __, deleted
-    assert_equal __, protein
+    assert_equal "bacon", deleted
+    assert_equal ["chicken", "steak"], protein
   end
 
   def test_delete_at
-    skip
     veggies = ["carrot", "parsnip", "courgette"]
     veggie = veggies.delete_at(1)
-    assert_equal __, veggie
-    assert_equal __, veggies
+    assert_equal "parsnip", veggie
+    assert_equal ["carrot", "courgette"], veggies
   end
 
   def test_compact
-    skip
-    assert_equal __, ["a", "b", "c"].compact
-    assert_equal __, ["a", nil, "b", "c", nil, nil].compact
-    assert_equal __, [nil].compact
+    assert_equal ["a", "b", "c"], ["a", "b", "c"].compact
+    assert_equal ["a", "b", "c"], ["a", nil, "b", "c", nil, nil].compact
+    assert_equal [], [nil].compact
   end
 
   def test_flatten
-    skip
-    assert_equal __, [:a, :b, :c].flatten
-    assert_equal __, [:a, [:b, :c]].flatten
-    assert_equal __, [:a, [:b, [:c]], [:d], :e, [:f, :g]].flatten
+    assert_equal [:a, :b, :c], [:a, :b, :c].flatten
+    assert_equal [:a, :b, :c], [:a, [:b, :c]].flatten
+    assert_equal [:a, :b, :c, :d, :e, :f, :g], [:a, [:b, [:c]], [:d], :e, [:f, :g]].flatten
   end
 
   # Uhm. Halp?

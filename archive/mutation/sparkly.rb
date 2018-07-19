@@ -1,6 +1,6 @@
 class Sparkly
   def initialize(text)
-    @text = text << sparkles
+    @text = text + sparkles
   end
 
   def to_s

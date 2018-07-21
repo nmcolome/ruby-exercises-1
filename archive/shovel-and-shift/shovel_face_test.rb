@@ -9,7 +9,7 @@ class ShovelFaceTest < Minitest::Test
     face << "apple"
     face << "bread"
     face << "chicken"
-    assert_equal face.foods_eaten
+    assert_equal ["apple", "bread", "chicken"], face.foods_eaten
 
     # Go look at the Face class.
     # How do you define `<<`?

@@ -11,133 +11,122 @@ class HashDefaultTest < Minitest::Test
     assert_equal expected, {}
 
     # This one fails. Fix it.
-    assert_equal {}, Hash.new
+    assert_equal({}, Hash.new)
   end
 
   def test_default_array_as_argument
-    skip
     lists = Hash.new([])
 
-    assert_equal __, lists
-    assert_equal __, lists[:a]
-    assert_equal __, lists[:b]
-    maybe lists[:a].object_id == lists[:b].object_id
+    assert_equal({}, lists)
+    assert_equal [], lists[:a]
+    assert_equal [], lists[:b]
+    assert lists[:a].object_id == lists[:b].object_id
   end
 
   def test_default_array_as_block
-    skip
     lists = Hash.new { [] }
 
-    assert_equal __, lists
-    assert_equal __, lists[:a]
-    assert_equal __, lists[:b]
-    maybe lists[:a].object_id == lists[:b].object_id
+    assert_equal({}, lists)
+    assert_equal [], lists[:a]
+    assert_equal [], lists[:b]
+    refute lists[:a].object_id == lists[:b].object_id
   end
 
   def test_default_string_as_argument
-    skip
     lists = Hash.new("")
 
-    assert_equal __, lists
-    assert_equal __, lists[:a]
-    assert_equal __, lists[:b]
-    maybe lists[:a].object_id == lists[:b].object_id
+    assert_equal({}, lists)
+    assert_equal "", lists[:a]
+    assert_equal "", lists[:b]
+    assert lists[:a].object_id == lists[:b].object_id
   end
 
   def test_default_string_as_block
-    skip
     lists = Hash.new { "" }
 
-    assert_equal __, lists
-    assert_equal __, lists[:a]
-    assert_equal __, lists[:b]
-    maybe lists[:a].object_id == lists[:b].object_id
+    assert_equal({}, lists)
+    assert_equal "", lists[:a]
+    assert_equal "", lists[:b]
+    refute lists[:a].object_id == lists[:b].object_id
   end
 
   def test_default_numbers_as_argument
-    skip
     lists = Hash.new(0)
 
-    assert_equal __, lists
-    assert_equal __, lists[:a]
-    assert_equal __, lists[:b]
-    maybe lists[:a].object_id == lists[:b].object_id
+    assert_equal({}, lists)
+    assert_equal 0, lists[:a]
+    assert_equal 0, lists[:b]
+    assert lists[:a].object_id == lists[:b].object_id
   end
 
   def test_default_numbers_as_block
-    skip
     lists = Hash.new { 0 }
 
-    assert_equal __, lists
-    assert_equal __, lists[:a]
-    assert_equal __, lists[:b]
-    maybe lists[:a].object_id == lists[:b].object_id
+    assert_equal({}, lists)
+    assert_equal 0, lists[:a]
+    assert_equal 0, lists[:b]
+    assert lists[:a].object_id == lists[:b].object_id
   end
 
   def test_grade_school_1
-    skip
     school = Hash.new([])
-    assert_equal __, lists
+    assert_equal({}, school)
 
     school['first grade'] << "Alice"
     school['first grade'] << "Bob"
     school['second grade'] << "Charlie"
 
-    assert_equal __, school['first grade']
-    assert_equal __, school['second grade']
-    assert_equal __, school['thirdgrade']
-    assert_equal __, lists
+    assert_equal ["Alice", "Bob", "Charlie"], school['first grade']
+    assert_equal ["Alice", "Bob", "Charlie"], school['second grade']
+    assert_equal ["Alice", "Bob", "Charlie"], school['thirdgrade']
+    assert_equal({}, school)
   end
 
   def test_grade_school_2
-    skip
     school = Hash.new { [] }
-    assert_equal __, school
+    assert_equal({}, school)
 
     school['first grade'] << "Alice"
     school['first grade'] << "Bob"
     school['second grade'] << "Charlie"
 
-    assert_equal __, school['first grade']
-    assert_equal __, school['second grade']
-    assert_equal __, school['third grade']
-    assert_equal __, school
+    assert_equal [], school['first grade']
+    assert_equal [], school['second grade']
+    assert_equal [], school['third grade']
+    assert_equal({}, school)
   end
 
   def test_grade_school_3
-    skip
     school = Hash.new { |hash, key| hash[key] = [] }
-    assert_equal __, school
+    assert_equal({}, school)
 
     school['first grade'] << "Alice"
     school['first grade'] << "Bob"
     school['second grade'] << "Charlie"
 
-    assert_equal __, school['first grade']
-    assert_equal __, school['second grade']
-    assert_equal __, school['third grade']
-    assert_equal __, school
+    assert_equal ["Alice", "Bob"], school['first grade']
+    assert_equal ["Charlie"], school['second grade']
+    assert_equal [], school['third grade']
+    assert_equal({'first grade' => ["Alice", "Bob"], 'second grade' => ["Charlie"], 'third grade' => []}, school)
   end
 
   def test_grade_school_4
-    skip
     school = Hash.new([])
-    assert_equal __, school
+    assert_equal({}, school)
 
     school['first grade'] += ["Alice"]
     school['first grade'] += ["Bob"]
     school['second grade'] += ["Charlie"]
 
-    assert_equal __, school['first grade']
-    assert_equal __, school['second grade']
-    assert_equal __, school['third grade']
-    assert_equal __, school
+    assert_equal ["Alice", "Bob"], school['first grade']
+    assert_equal ["Charlie"], school['second grade']
+    assert_equal [], school['third grade']
+    assert_equal({"first grade"=>["Alice", "Bob"], "second grade"=>["Charlie"]}, school)
   end
 
   def test_word_stem_1
-    skip
     words = Hash.new('de')
-    assert_equal __, words
+    assert_equal({}, words)
 
     word1 = words[1] << 'fault'
     word2 = words[2] << 'cide'
@@ -145,19 +134,18 @@ class HashDefaultTest < Minitest::Test
     word4 = words[4] << 'bunk'
     word5 = words[5] << 'rail'
 
-    assert_equal __, word1
-    assert_equal __, word2
-    assert_equal __, word3
-    assert_equal __, word4
-    assert_equal __, word5
+    assert_equal "defaultcidespairbunkrail", word1
+    assert_equal "defaultcidespairbunkrail", word2
+    assert_equal "defaultcidespairbunkrail", word3
+    assert_equal "defaultcidespairbunkrail", word4
+    assert_equal "defaultcidespairbunkrail", word5
 
-    assert_equal __, words
+    assert_equal({}, words)
   end
 
   def test_word_stem_2
-    skip
     words = Hash.new { 'de' }
-    assert_equal __, words
+    assert_equal({}, words)
 
     word1 = words[1] << 'fault'
     word2 = words[2] << 'cide'
@@ -165,19 +153,18 @@ class HashDefaultTest < Minitest::Test
     word4 = words[4] << 'bunk'
     word5 = words[5] << 'rail'
 
-    assert_equal __, word1
-    assert_equal __, word2
-    assert_equal __, word3
-    assert_equal __, word4
-    assert_equal __, word5
+    assert_equal 'default', word1
+    assert_equal 'decide', word2
+    assert_equal 'despair', word3
+    assert_equal 'debunk', word4
+    assert_equal 'derail', word5
 
-    assert_equal __, words
+    assert_equal({}, words)
   end
 
   def test_word_stem_3
-    skip
     words = Hash.new { |hash, key| hash[key] = 'de' }
-    assert_equal __, words
+    assert_equal({}, words)
 
     word1 = words[1] << 'fault'
     word2 = words[2] << 'cide'
@@ -185,19 +172,18 @@ class HashDefaultTest < Minitest::Test
     word4 = words[4] << 'bunk'
     word5 = words[5] << 'rail'
 
-    assert_equal __, word1
-    assert_equal __, word2
-    assert_equal __, word3
-    assert_equal __, word4
-    assert_equal __, word5
+    assert_equal 'default', word1
+    assert_equal 'decide', word2
+    assert_equal 'despair', word3
+    assert_equal 'debunk', word4
+    assert_equal 'derail', word5
 
-    assert_equal __, words
+    assert_equal({ 1 => 'default', 2=> 'decide', 3 => 'despair', 4 => 'debunk', 5 => 'derail' }, words)
   end
 
   def test_word_stem_4
-    skip
     words = Hash.new('de')
-    assert_equal __, words
+    assert_equal({}, words)
 
     word1 = words[1] += 'fault'
     word2 = words[2] += 'cide'
@@ -205,12 +191,12 @@ class HashDefaultTest < Minitest::Test
     word4 = words[4] += 'bunk'
     word5 = words[5] += 'rail'
 
-    assert_equal __, word1
-    assert_equal __, word2
-    assert_equal __, word3
-    assert_equal __, word4
-    assert_equal __, word5
+    assert_equal 'default', word1
+    assert_equal 'decide', word2
+    assert_equal 'despair', word3
+    assert_equal 'debunk', word4
+    assert_equal 'derail', word5
 
-    assert_equal __, words
+    assert_equal({ 1 => 'default', 2=> 'decide', 3 => 'despair', 4 => 'debunk', 5 => 'derail' }, words)
   end
 end

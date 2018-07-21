@@ -16,7 +16,6 @@ class PillsTest < Minitest::Test
   end
 
   def test_popping_more_than_one_pill
-    skip
     pills = Pills.new
     pills.pop
     pills.pop

@@ -1,5 +1,11 @@
 class Pills
-  def count
-    60
+  attr_reader :count
+
+  def initialize
+    @count = 60
+  end
+
+  def pop
+    @count -= 1
   end
 end

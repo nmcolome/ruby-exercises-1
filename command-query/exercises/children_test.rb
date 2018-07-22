@@ -12,14 +12,12 @@ class ChildrenTest < Minitest::Test
   end
 
   def test_the_eldest_of_one
-    skip
     children = Children.new
     children << Child.new("Sarah", 5)
     assert_equal "Sarah", children.eldest.name
   end
 
   def test_the_eldest_of_several
-    skip
     children = Children.new
     children << Child.new("Robert", 2)
     children << Child.new("Fran", 8)

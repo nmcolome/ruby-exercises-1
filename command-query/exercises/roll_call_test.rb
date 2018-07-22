@@ -6,18 +6,16 @@ require_relative 'roll_call'
 class RollCallTest < Minitest::Test
   def test_no_names
     roll_call = RollCall.new
-    assert_equal nil, roll_call.longest_name
+    assert_nil roll_call.longest_name
   end
 
   def test_longest_of_one
-    skip
     roll_call = RollCall.new
     roll_call << "Oda"
     assert_equal "Oda", roll_call.longest_name
   end
 
   def test_longest_of_several
-    skip
     roll_call = RollCall.new
     roll_call << "Ann"
     roll_call << "Alexandra"

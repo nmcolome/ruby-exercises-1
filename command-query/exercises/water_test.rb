@@ -10,7 +10,6 @@ class WaterTest < Minitest::Test
   end
 
   def test_heating_water
-    skip
     water = Water.new
     water.heat
     assert_equal 296, water.temperature

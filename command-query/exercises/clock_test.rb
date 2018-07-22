@@ -10,7 +10,6 @@ class ClockTest < Minitest::Test
   end
 
   def test_passage_of_time
-    skip
     clock = Clock.new
     clock.wait
     assert_equal 7, clock.time
@@ -20,7 +19,6 @@ class ClockTest < Minitest::Test
   end
 
   def test_clocks_are_not_military_time
-    skip
     clock = Clock.new
     8.times { clock.wait }
     assert_equal 2, clock.time

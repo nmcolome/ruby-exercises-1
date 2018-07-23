@@ -32,18 +32,16 @@ class CountPatternTest < Minitest::Test
   end
 
   def test_3
-    skip
     ages = [39, 45, 29, 24, 50]
     older_than_fifty = 0
     ages.each do |age|
-      # Your Code Here
+      older_than_fifty += 1 if age > 50
     end
 
     assert_equal 0, older_than_fifty
   end
 
   def test_4
-    skip
     ages = {
       abdi: 39,
       hassan: 45,
@@ -53,23 +51,21 @@ class CountPatternTest < Minitest::Test
     }
     older_than_fifty = 0
     ages.each do |name, age|
-      # Your Code Here
+      older_than_fifty += 1 if age > 50
     end
 
     assert_equal 0, older_than_fifty
   end
 
   def test_5
-    skip
     ages = [39, 45, 29, 24, 50]
     multiple_of_three = 0
-    # Your Code Here
+    ages.each { |age| multiple_of_three += 1 if age % 3 == 0 }
 
     assert_equal 3, multiple_of_three
   end
 
   def test_6
-    skip
     ages = {
       abdi: 39,
       hassan: 45,
@@ -78,21 +74,20 @@ class CountPatternTest < Minitest::Test
       miguel: 50
     }
     multiple_of_three = 0
-    # Your Code Here
+    ages.each { |k, v| multiple_of_three += 1 if v % 3 == 0 }
 
     assert_equal 3, multiple_of_three
   end
 
   def test_7
-    skip
     family = ["alice", "bob", "charlie", "david", "eve"]
-    # Your Code Here
+    names_with_three_letters = 0
+    family.each { |name| names_with_three_letters += 1 if name.length == 3}
 
     assert_equal 2, names_with_three_letters
   end
 
   def test_8
-    skip
     family = {
       mother: "alice",
       father: "bob",
@@ -100,21 +95,25 @@ class CountPatternTest < Minitest::Test
       uncle: "david",
       sister: "eve"
     }
-    # Your Code Here
+    names_with_three_letters = 0
+    family.each do |k, v|
+      if v.length == 3
+        names_with_three_letters += 1
+      end
+    end
 
     assert_equal 2, names_with_three_letters
   end
 
   def test_9
-    skip
     prices = [1.0, 3.9, 5.99, 18.5, 20.0]
-    # Your code goes here
+    whole_numbers = 0
+    prices.each { |price| whole_numbers += 1 if price - price.to_i == 0 }
 
     assert_equal 2, whole_numbers
   end
 
   def test_10
-    skip
     prices = {
       "shoes" => 1.0,
       "backpack" => 3.9,
@@ -122,7 +121,12 @@ class CountPatternTest < Minitest::Test
       "posters" => 18.5,
       "food" => 20.0
     }
-    # Your Code Here
+    whole_numbers = 0
+    prices.each do |k, v|
+      if v - v.to_i == 0
+        whole_numbers += 1
+      end
+    end
 
     assert_equal 2, whole_numbers
   end
